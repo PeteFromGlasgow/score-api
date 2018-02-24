@@ -1,0 +1,25 @@
+{
+  "name": "stream-arcade-score-server",
+  "version": "1.0.0",
+  "description": "Score api for the stream-arcade project",
+  "main": "dist/index.js",
+  "scripts": {
+    "server": "ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^5.0.0",
+    "typescript": "^2.7.2"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "reflect-metadata": "^0.1.12",
+    "routing-controllers": "^0.7.6",
+    "sqlite3": "^3.1.13",
+    "typedi": "^0.7.0",
+    "typeorm": "^0.1.12",
+    "typeorm-typedi-extensions": "^0.1.1"
+  }
+}
