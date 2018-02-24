@@ -10,16 +10,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "reflect-metadata": "^0.1.12",
     "ts-node": "^5.0.0",
     "typescript": "^2.7.2"
   },
   "dependencies": {
     "express": "^4.16.2",
-    "reflect-metadata": "^0.1.12",
     "routing-controllers": "^0.7.6",
     "sqlite3": "^3.1.13",
     "typedi": "^0.7.0",
     "typeorm": "^0.1.12",
+    "typeorm-routing-controllers-extensions": "^0.1.0",
     "typeorm-typedi-extensions": "^0.1.1"
   }
 }

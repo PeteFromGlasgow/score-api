@@ -1,7 +1,6 @@
-import {Connection} from "typeorm";
-import {OrmConnection, OrmRepository, } from "typeorm-typedi-extensions";
+import {EntityManager, Repository, Connection} from "typeorm";
 import {Get, JsonController} from "routing-controllers"
-import { Repository } from "typeorm/repository/Repository";
+import {OrmRepository, OrmConnection } from "typeorm-typedi-extensions";
 import { Score } from "../model/Score";
 import { Game } from "../model/Game";
 import { User } from "../model/User";
@@ -9,12 +8,20 @@ import { User } from "../model/User";
 @JsonController()
 export class ScoreController {
 
-    @OrmConnection()
-    private connection: Connection;
+    @OrmRepository(Game)
+    private gameRepository: Repository<Game>
+
+    @OrmRepository(Score)
+    private scoreRepository: Repository<Score>
+
+    @OrmRepository(User)
+    private userRepository: Repository<User>
+
 
     @Get('/')
     getGames() {
-        let gameRepository = this.connection.getRepository<Game>(Game);
-        return gameRepository.find()
+        return this.gameRepository.find()
     }
+
+    //@Get(':id')
 }

@@ -1,33 +1,26 @@
+import "reflect-metadata";
+
 import { createExpressServer, useContainer as routingControllerContainer } from 'routing-controllers'
 import { createConnection, useContainer as typeOrmContainer } from 'typeorm'
 import { Container } from 'typedi'
 
 import { ScoreController } from './controller/ScoreController'
 import { Game } from './model/Game';
+import { Score } from './model/Score';
+import { User } from './model/User';
 
-routingControllerContainer(Container)
 typeOrmContainer(Container)
-
-let app = createExpressServer({
-    controllers: [ScoreController]
-})
+routingControllerContainer(Container)
 
 createConnection({
     type: "sqlite",
     database: "test",
-    entities: [
-        __dirname + "/model/*.ts"
-    ],
+    entities: [Game, Score, User],
     synchronize: true,
-}).then(async (connection) => {
-    let gameRepository = connection.getRepository(Game)
+})
 
-    let [games, count] = await gameRepository.findAndCount()
-    if (count < 2) {
-        let flappyScrangle = new Game('Flappy Scrangle')
-        let simInvaders = new Game('Sim Invaders')
-        gameRepository.save([flappyScrangle, simInvaders])
-    }
+let app = createExpressServer({
+    controllers: [ScoreController]
 })
 
 app.listen(3000, () => console.log('Listening on port 3000'))
