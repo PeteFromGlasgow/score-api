@@ -14,13 +14,26 @@ routingControllerContainer(Container)
 
 createConnection({
     type: "sqlite",
-    database: "test",
-    entities: [Game, Score, User],
-    synchronize: true,
+    database: "database",
+    entities: [Game, Score, User]
+}).then(async (connection) => {
+    await connection.synchronize(true)
+    let gameRepository = await connection.getRepository<Game>(Game)
+
+    let [games, count] = await gameRepository.findAndCount()
+    
+    if (count === 0) {
+        await connection.getRepository<User>(User).save(user);
+        let flappyScrangle = new Game('Flappy Scrangle');
+        let simInvaders = new Game('Sim Invaders');
+
+        [flappyScrangle, simInvaders] = await gameRepository.save([flappyScrangle, simInvaders])
+    }
 })
 
 let app = createExpressServer({
-    controllers: [ScoreController]
+    controllers: [ScoreController],
+    cors: true
 })
 
 app.listen(3000, () => console.log('Listening on port 3000'))

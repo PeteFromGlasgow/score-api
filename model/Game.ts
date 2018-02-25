@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn} from "typeorm";
+import { Score } from "./Score";
 
 @Entity()
 export class Game {
@@ -8,6 +9,10 @@ export class Game {
 
     @Column({type: 'varchar'})
     name: string;
+
+    @OneToMany(() => Score, score => score.game)
+    @JoinColumn()
+    scores: Score
 
     constructor(name: string) {
         this.name = name
